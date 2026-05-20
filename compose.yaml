@@ -1,0 +1,20 @@
+services:
+  api:
+    environment:
+      - DB=sqlite
+      - DB_NAME=database
+      - DB_HOST=
+      - DB_PORT=None
+      - DB_USERNAME=mathieulinel
+    build:
+      context: .
+
+    container_name: fastapi-application
+    ports:
+      - 8000:8000
+    volumes:
+      - ./database.db:/app/database.db
+      - ./data:/app/data 
+
+volumes: {}
+
