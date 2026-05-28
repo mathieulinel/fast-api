@@ -12,8 +12,8 @@ app = FastAPI(title="this is the api")
 @app.on_event("startup")
 def on_startup():
     create_db_and_tables()
-    load_data('data/users.json', User, engine)
-    load_data('data/products.json', Product, engine)
+    load_data(set_path("users"), User, engine)
+    load_data(set_path("products"), Product, engine)
 
 
 app.include_router(users_router)

@@ -1,5 +1,6 @@
 .env
 .venv
-infra/
+infra/api_project/variables.tf
+infra/bootstrap/variables.tf
 database.db
 __pycache__
