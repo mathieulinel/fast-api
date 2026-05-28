@@ -6,6 +6,7 @@ services:
       - DB_HOST=
       - DB_PORT=None
       - DB_USERNAME=mathieulinel
+      - DATA_DIR=data
     build:
       context: .
 
