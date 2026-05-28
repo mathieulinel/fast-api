@@ -4,3 +4,4 @@ infra/api_project/variables.tf
 infra/bootstrap/variables.tf
 database.db
 __pycache__
+compose.yaml
