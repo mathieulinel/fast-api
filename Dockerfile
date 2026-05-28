@@ -38,17 +38,17 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=requirements.txt,target=requirements.txt \
     python -m pip install -r requirements.txt
 
+# Copy the source code into the container.
+COPY . .
+
 # Create data directory and give appuser ownership
 RUN mkdir -p /app/data && chown -R appuser:appuser /app
 
 # Switch to the non-privileged user to run the application.
 USER appuser
 
-# Copy the source code into the container.
-COPY . .
-
 # Expose the port that the application listens on.
 EXPOSE 8000
 
 # Run the application.
-CMD uvicorn main:app --host=0.0.0.0 --port=8000 --reload
+CMD uvicorn main:app --host=0.0.0.0 --port=${PORT:-8000}
