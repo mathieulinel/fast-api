@@ -1,14 +1,14 @@
 .env
 .venv
 
-infra/api_project/variables.tf
 infra/api_project/.terraform/
 infra/api_project/*.tfstate
 infra/api_project/*.tfstate.*
-infra/bootstrap/variables.tf
+# infra/api_project/tf.tfvars
 infra/bootstrap/.terraform/
 infra/bootstrap/*.tfstate
 infra/bootstrap/*.tfstate.*
+# infra/bootstrap/tf.tfvars
 .terraform.tfstate.lock.info
 
 database.db
