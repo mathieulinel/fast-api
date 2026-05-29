@@ -73,7 +73,7 @@ data "google_storage_bucket" "api-app-state" {
 
 resource "local_file" "default" {
   file_permission = "0644"
-  filename        = "${path.module}/backend.tf"
+  filename        = "${path.module}/${terraform.workspace}-backend.tf"
 
   # You can store the template in a file and use the templatefile function for
   # more modularity, if you prefer, instead of storing the template inline as

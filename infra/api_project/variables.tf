@@ -1,14 +1,15 @@
-variable "suffix" {
-  type = string
-}
+# variable "suffix" {
+#   type = string
+# }
 
 variable "project_id" {
+  default = "api-app-math-v4"
   type = string
 }
 
-variable "cloudrun_id" {
-  type = string
-}
+# variable "cloudrun_id" {
+#   type = string
+# }
 
 variable "db" {
   type = string
