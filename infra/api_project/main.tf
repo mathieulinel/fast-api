@@ -3,7 +3,7 @@ resource "google_project_service" "artifactregistry" {
 }
 
 resource "google_artifact_registry_repository" "orders" {
-  repository_id = "api-app-math-tf"
+  repository_id = "${terraform.workspace}-api-app-math-tf"
   format = "DOCKER"
   depends_on = [
     google_project_service.artifactregistry
@@ -15,7 +15,7 @@ resource "google_project_service" "cloudrun" {
 }
 
 resource "google_cloud_run_v2_service" "default" {
-  name     = "api-app-tf"
+  name     = "${terraform.workspace}-api-app-tf"
   location = "europe-west4"
   client   = "terraform"
   deletion_protection=false
