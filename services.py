@@ -3,10 +3,10 @@ from sqlalchemy import URL
 import json
 import os
 
-def set_db(dialect, port=None, host="", database="test.db", username="mathieulinel"):
-    if not database.endswith(".db") and dialect != 'postgresql':
+def set_db(dialect, port=None, host="", database="test.db", username="admin", password="admin"):
+    if not database.endswith(".db") and dialect != 'postgres':
             database = f"{database}.db"
-    if database.endswith(".db") and dialect == 'postgresql':
+    if database.endswith(".db") and dialect == 'postgres':
             database = os.path.splitext(database)[0]
     match dialect:
         case "sqlite":
@@ -22,11 +22,11 @@ def set_db(dialect, port=None, host="", database="test.db", username="mathieulin
                     database=database,
                     port=port or 3306
                 )
-        case "postgresql":
+        case "postgres":
             return URL.create(
                     drivername="postgresql+psycopg2",
                     username=username,
-                    # password=password,
+                    password=password,
                     host=host or "localhost",
                     database=database,
                     port=port or 5432
