@@ -1,4 +1,4 @@
-from sqlmodel import Session, insert
+from sqlmodel import Session, insert, text
 from sqlalchemy import URL
 import json
 import os
@@ -42,3 +42,4 @@ def load_data(filepath: str, table, engine):
         with Session(bind=engine) as session:
             session.execute(insert(table), data)
             session.commit()
+            session.execute(text(f"SELECT setval(pg_get_serial_sequence('{table.__tablename__}', 'id'), MAX(id)) FROM {table.__tablename__}"))
