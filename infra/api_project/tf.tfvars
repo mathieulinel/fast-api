@@ -1,8 +1,9 @@
 # suffix = 
-db = "sqlite"
+db = "postgres"
 db_name = "database"
-db_host = ""
-db_port = ""
-db_username = "mathieulinel"
+db_host = "localhost"
+db_port = 5432
+db_username = "admin"
+db_password = "admin"
 data_dir = "/tmp/data"
 bucket_id = "api-app-math-terraform-remote-backend"

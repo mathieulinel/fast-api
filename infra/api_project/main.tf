@@ -10,6 +10,29 @@ resource "google_artifact_registry_repository" "orders" {
   ]
 }
 
+# resource "google_sql_database_instance" "db_instance" {
+#   name             = "postgres-db-instance"
+#   database_version = "POSTGRES_17"
+#   region           = "europe-west4"
+#   deletion_protection = false
+#   settings {
+#     # Second-generation instance tiers are based on the machine
+#     # type. See argument reference below.
+#     tier = "db-f1-micro"
+#   }
+# }
+
+# resource "google_sql_database" "default_db" {
+#   name     = var.db
+#   instance = google_sql_database_instance.db_instance.name
+# }
+
+# resource "google_sql_user" "default_user" {
+#   name     = var.db_username
+#   instance = google_sql_database_instance.db_instance.name
+#   password = var.db_password
+# }
+
 resource "google_project_service" "cloudrun" {
   service = "run.googleapis.com"
 }
@@ -54,9 +77,51 @@ resource "google_cloud_run_v2_service" "default" {
         value = var.data_dir
       }
 
-      image = "europe-west4-docker.pkg.dev/${var.project_id}/${google_artifact_registry_repository.orders.repository_id}/api_app-api:latest"
+      image = "europe-west4-docker.pkg.dev/${var.project_id}/${google_artifact_registry_repository.orders.repository_id}/api_app-api:2.0.0"
+      # volume_mounts {
+      #   name = "cloudsql"
+      #   mount_path = "/cloudsql"
+      # }
 
     }
+    containers {
+      env {
+        name = "DB"
+        value = var.db
+      }
+      env {
+        name = "POSTGRES_DB"
+        value = var.db_name
+      }
+      env {
+        name = "DB_HOST"
+        value = var.db_host
+      }
+      env {
+        name = "DB_PORT"
+        value = var.db_port
+      }
+      env {
+        name = "POSTGRES_USER"
+        value = var.db_username
+      }
+      env {
+        name = "POSTGRES_PASSWORD"
+        value = var.db_password
+      }
+      env {
+        name = "PGDATA"
+        value = "var/lib/postgresql/data/pgdata"
+      }
+      image = "postgres:17"
+
+    }
+    # volumes {
+    #   name = "cloudsql"
+    #   cloud_sql_instance {
+    #     instances = [google_sql_database_instance.default.connection_name]
+    #   }
+    # }
   }
 }
 

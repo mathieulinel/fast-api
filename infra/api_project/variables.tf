@@ -31,6 +31,10 @@ variable "db_username" {
   type = string
 }
 
+variable "db_password" {
+  type = string
+}
+
 variable "data_dir" {
   type = string
 }
